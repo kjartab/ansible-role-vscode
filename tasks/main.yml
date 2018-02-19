@@ -1,2 +1,21 @@
 ---
-# tasks file for ansible-role-vscode
+
+- name: Add an Apt signing key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: update apt-cache
+  apt:
+    update_cache: yes 
+
+- apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main
+    filename: vscode
+    state: present
+
+
+- name: install vscode
+  apt:
+    name: code
+    update_cache: yes 
+
